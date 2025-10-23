@@ -11,3 +11,5 @@ you can see possibly what the server is running by try and error, or try the bur
 
 anyway, after sending the webshell to the server and changing the parameters in the file you send, you will open and listen to a port in your computer, and after that you will enter in the server if you go the place where you read the file passwd
 and instead of reading the passwd file you go to the file you just upload where you found the uploads folder and with the knowledge of which Apache or somehting else you can execute the shell and connect to the server.
+
+after entering is just exploit and try to go up the permissions chain to a root user or something.
