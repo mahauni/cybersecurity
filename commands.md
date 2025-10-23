@@ -150,6 +150,16 @@ python3 -c "import pty;pty.spawn('bin/bash')"
 
 ---
 
+## Listen to a port in your computer
+
+```bash
+nc -lnvp 1234
+```
+
+*Listen to the port 1234 in your computer*
+
+---
+
 ## Privilege enumeration / escalation helpers
 
 ```bash
