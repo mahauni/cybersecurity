@@ -1,15 +1,22 @@
 # Tirar print de tudo da tela. Ate do tempo
 
+Verificamos o nosso IP com esse comando.
 ip -br -c a
 
+E verificamos com o netdiscover os IPs que estao sendo utilizados na nossa rede.
 netdiscover -i eth0 -P -r 192.168.56.0/24
 
+Pingar o IP para verificar se ele esta aceitando requisicoes.
 ping 192.168.56.103
 
+Entramos em um browser para verificar o site que esta no ar.
 // entrar no mozilla o site
 
+Utilizar o nmap para verificar as portas abertas do servidor e os servidores rodando nela.
 nmap -p- -sV 192.168.56.103
 
+O servidor do servidor e um Apache, com um padrao de criacao de arquivos para web no path /var/www/html.
+Um metodo para deixar o servidor mais seguro, seria modificar o path default do Apache para um outro.
 # Porta 80 esta aberta e é uma PORTA OPEN com um 
 # Apache httpd 2.4.29 ((Ubuntu)), ele cria /var/www/html, e para ajustar modificar a pagina de criação default do apache
 
@@ -17,17 +24,26 @@ nmap -p- -sV 192.168.56.103
 
 # achar a URL vuneravel
 
+Ao procurar pelo site, foi possivel achar uma URL possivelmente vuneravel. Por causa que a url contem o ?nome=...
 // http://192.168.56.103/language.php?lang=en.php
 
 # porque tem o ?nome=....
 # Agora tenta ler um arquivo com o LFI com por exemplo essa url
 
+Testar a URL para verificar se ela realmente e vuneravel com essa URL. Se retornar o arquivo de passwd que e o arquivo de usuarios, isso significa que a URL e vuneravel.
 // http://192.168.56.103/language.php?lang=../../../../etc/passwd
 
 # Para ver bonito, clica em view page source
 # Ir no portswigger e falar o que tem que fazer para trocar de coisa, dizer a vunerabilidade e o que tem que fazer para corrigir
 
+Procurar no site por um local para fazer upload the arquivos.
+
+Ao achar o local, tentar enviar um arquivo .php para testar se e possivel enviar um backdoor para o website.
+Possivel ver que nao e possivel enviar um arquivo .php
 // tentar inserir um arquivo .php, mas provavelmente retornara um erro porque ele apenas aceita arquivo .jpg
+
+Contudo, podemos transformar o arquivo de backdoor para .jpg com esse comando
+cp php-reverse-shell.php shell.php.jpg
 
 // transformar o backdoor php em .jpg
 // editar o arquivo /usr/share/webshells/php/php-reverse-shell.php
